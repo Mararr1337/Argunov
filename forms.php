@@ -1,5 +1,5 @@
 <?php 
-$s=0
+$s=0;
 {if(isset($_GET['number']));
     $number=$_GET['number'];
     $s = $number**2;
