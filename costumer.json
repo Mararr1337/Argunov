@@ -1,0 +1,38 @@
+{"Users":[
+    {
+        "name": "Иван",
+        "login": "vanya",
+        "password": "gt3E1d@d",
+        "email": "vanya@mail.ru",
+        "amount": "300"
+    },
+    {
+        "name": "Павел",
+        "login": "Pavel",
+        "password": "p123!",
+        "email": "Mono@mail.ru",
+        "amount": "1500"
+    },
+    {
+        "name": "Алексей",
+        "login": "alyosha",
+        "password": "q124",
+        "email": "Alyosha@mail.ru",
+        "amount": "750"
+    },
+    {
+        "name": "Даниил",
+        "login": "Danyock",
+        "password": "D125",
+        "email": "Danyock@mail.ru",
+        "amount": "200"
+    },
+    {
+        "name": "Сергей",
+        "login": "sergay",
+        "password": "s126",
+        "email": "sergAY@mail.ru",
+        "amount": "1200"
+    }
+]
+}

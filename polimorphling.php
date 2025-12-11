@@ -44,6 +44,10 @@ class Teacher extends User {
         echo "Предметы: " . implode(", ", $this->subjects) . "<br>";
         echo "_____________________<br>";
     }
+    
+    public function getSubjects() {
+        return $this->subjects;
+    }
 }
 
 class Manager extends User {
@@ -63,6 +67,14 @@ class Manager extends User {
         echo "Обязанности: " . implode(", ", $this->jobDuties) . "<br>";
         echo "_____________________<br>";
     }
+    
+    public function getPosition() {
+        return $this->position;
+    }
+    
+    public function getJobDuties() {
+        return $this->jobDuties;
+    }
 }
 
 class Student extends User {
@@ -79,30 +91,71 @@ class Student extends User {
         echo "Курс: {$this->course}<br>";
         echo "_____________________<br>";
     }
+    
+    public function getCourse() {
+        return $this->course;
+    }
 }
 
-$persons = [
+// Исходные данные
+$students = [
     new Student("Алексей", "Мартынихин", "alexey@gmail.com", 2),
     new Student("Лева", "Полуян", "Lewa@gmail.com", 1),
-    new Teacher("Сергей", "Пэлэгин", "sergey@gmail.com", ["Физра"]),
-    new Teacher("Марат", "Аргунов", "Marrar@gmail.com", ["Информатика", "Программирование"]),
-    new Manager("Павел", "Моноколесов", "Pablo@gmail.com", "Директор", ["Управление моноколесом", "ш"]),
-    new Manager("Даниил", "Гусаров", "D4n!!l@gmail.com", "Завуч", ["Расписание"]),
     new Student("Аристрах", "Матросов", "4rr!k@gmail.com", 3)
 ];
 
-usort($persons, function($a, $b) {
-    return strcmp($a->getFirstName(), $b->getFirstName());
-});
+$teachers = [
+    new Teacher("Сергей", "Пэлэгин", "sergey@gmail.com", ["Физра"]),
+    new Teacher("Марат", "Аргунов", "Marrar@gmail.com", ["Информатика", "Программирование"])
+];
 
-echo "<h2>Все участники:</h2>";
-foreach ($persons as $person) {
-    $person->sayAboutMe();
+$managers = [
+    new Manager("Павел", "Моноколесов", "Pablo@gmail.com", "Директор", ["Управление моноколесом", "ш"]),
+    new Manager("Даниил", "Гусаров", "D4n!!l@gmail.com", "Завуч", ["Расписание"])
+];
+
+// Функция для преобразования объектов в массивы для JSON
+function prepareDataForJson($objects) {
+    $data = [];
+    foreach ($objects as $obj) {
+        if ($obj instanceof Student) {
+            $data[] = [
+                'type' => 'student',
+                'firstName' => $obj->getFirstName(),
+                'lastName' => $obj->getLastName(),
+                'email' => $obj->getEmail(),
+                'course' => $obj->getCourse()
+            ];
+        } elseif ($obj instanceof Teacher) {
+            $data[] = [
+                'type' => 'teacher',
+                'firstName' => $obj->getFirstName(),
+                'lastName' => $obj->getLastName(),
+                'email' => $obj->getEmail(),
+                'subjects' => $obj->getSubjects()
+            ];
+        } elseif ($obj instanceof Manager) {
+            $data[] = [
+                'type' => 'manager',
+                'firstName' => $obj->getFirstName(),
+                'lastName' => $obj->getLastName(),
+                'email' => $obj->getEmail(),
+                'position' => $obj->getPosition(),
+                'jobDuties' => $obj->getJobDuties()
+            ];
+        }
+    }
+    return $data;
 }
 
-echo "<h2>Розыгрыш:</h2>";
-$winner = $persons[rand(0, count($persons) - 1)];
-echo "<strong>Победитель:</strong><br>";
-$winner->sayAboutMe();
+$usersData = [
+    'students' => prepareDataForJson($students),
+    'teachers' => prepareDataForJson($teachers),
+    'managers' => prepareDataForJson($managers)
+];
+
+$jsonData = json_encode($usersData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+file_put_contents('users.json', $jsonData);
+echo "Файл users.json создан успешно!<br><br>";
 
 ?>
