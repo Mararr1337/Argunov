@@ -1,62 +1,57 @@
 {
-    "users": [
+    "users":[
+    {
+        "type": "student",
+        "id": "1",
+        "Name": "Воучик",
+        "Group": "ИВ1к-24",
+        "Email": "WOWKA@gmail.com"
+    },
+    {
+        "type": "student",
+        "id": "2",
+        "Name": "Алексей",
+        "Group": "ИВ1к-24",
+        "Email": "Alyoshabest@gmail.com"
+    },
+    {
+        "type": "student",
+        "id": "3",
+        "Name": "Маратик",
+        "Group": "ИВ1к-24",
+        "Email": "MArarr@gmail.com"
+    },
         {
-            "Name": "Даниил ГУсароу",
-            "Group": "ИВ1-12",
-            "Email": "Byrcevv@gmail.com"
+            "type": "teacher",
+            "id": "4",
+            "Name": "Эльвира Александровна",
+            "Subjects": ["Математика" , "физика"],
+            "Group": "ИВ1к-24",
+            "Email": "Elvirka@gmail.com"
         },
         {
+            "type": "teacher",
+            "id": "5",
             "Name": "Никита Николаевич",
+            "Subjects": ["Разработка кода информацционных систем"],
             "Group": "ИВ1к-24",
-            "Email": "nikolay@gmail.com"
+            "Email": "niknik@gmail.com"
         },
         {
-            "Name": "Марат",
+            "type": "manager",
+            "id": "6",
+            "Name": "Вера Алексеевна",
+            "Position": ["Кеп" , "Библиотекатерь"],
             "Group": "ИВ1к-24",
-            "Email": "Marrar@gmail.com"
+            "Email": "kurator@gmail.com"
         },
         {
-            "Name": "Вера Алексеевна",
-            "Group": "Куратор",
-            "Email": "Wera@gmail.com"
-        },
-        {
-            "Name": "Марат",
-            "Subject": "Физика"
-        },
-        {
-            "Name": "Сергей",
-            "Subject": "Физ-ра"
-        },
-        {
-            "Name": "Даниил",
-            "Subject": "Математика"
-        },
-        {
-            "Name": "Вера",
-            "Email": "Куратор"
-        },
-        {
-            "Name": "Алеша",
-            "Email": "Староста"
-        },
-        {
-            "Name": "Вера Алексеевна",
-            "Group": "Куратор",
-            "Email": "Wera@gmail.com",
-            "type": "student"
-        },
-        {
-            "Name": "Вера Алексеевна",
-            "Group": "Куратор",
-            "Email": "Wera@gmail.com",
-            "type": "student"
-        },
-        {
-            "Name": "Вера Алексеевна",
-            "Group": "Куратор",
-            "Email": "Wera@gmail.com",
-            "type": "student"
+            "type": "manager",
+            "id": "7",
+            "Name": "Миша",
+            "Position": ["Директор Майкрософт"],
+            "Group": "ИВ1к-24",
+            "Email": "michael@gmail.com"
         }
     ]
 }

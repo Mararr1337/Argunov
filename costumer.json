@@ -9,30 +9,30 @@
     {
         "name": "Павел",
         "login": "Pavel",
-        "password": "p123!",
+        "password": "p12A3@!",
         "email": "Mono@mail.ru",
         "amount": "1500"
     },
     {
         "name": "Алексей",
         "login": "alyosha",
-        "password": "q124",
+        "password": "q1V@24",
         "email": "Alyosha@mail.ru",
-        "amount": "750"
+        "amount": "7000"
     },
     {
         "name": "Даниил",
         "login": "Danyock",
-        "password": "D125",
+        "password": "D12v2@5",
         "email": "Danyock@mail.ru",
         "amount": "200"
     },
     {
         "name": "Сергей",
         "login": "sergay",
-        "password": "s126",
+        "password": "s1@2U6",
         "email": "sergAY@mail.ru",
-        "amount": "1200"
+        "amount": "12000"
     }
 ]
 }

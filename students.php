@@ -1,5 +1,4 @@
 <?php
-
 class User {
     public $name;
     public $email;
@@ -16,7 +15,6 @@ class User {
         if (!empty($this->email)) {
             echo "Email: {$this->email}<br>";
         }
-        echo "______________<br>";
     }
 }
 
@@ -34,99 +32,47 @@ class Student extends User {
         if (!empty($this->email)) {
             echo "Email: {$this->email}<br>";
         }
-        echo "______________<br>";
     }
 }
 
-class Teacher extends User {
-    public $subject;
+if (isset($_GET['delete'])) {
+    $index = $_GET['delete']; 
     
-    public function __construct($name, $subject, $email = "") {
-        parent::__construct($name, $email, "преподаватель");
-        $this->subject = $subject;
-    }
+    $data = json_decode(file_get_contents('users1.json'), true);
+    unset($data['users'][$index]);
+    file_put_contents('users1.json', json_encode($data));
     
-    public function sayAboutMe() {
-        echo "Преподаватель: {$this->name}<br>";
-        echo "Предмет: {$this->subject}<br>";
-        if (!empty($this->email)) {
-            echo "Email: {$this->email}<br>";
-        }
-        echo "______________<br>";
-    }
+    echo "Пользователь удален<br><br>";
 }
 
-class Manager extends User {
-    public $position;
-    
-    public function __construct($name, $email = "", $position = "администратор") {
-        parent::__construct($name, $email, "администратор");
-        $this->position = $position;
-    }
-    
-    public function sayAboutMe() {
-        echo "Администратор: {$this->name}<br>";
-        echo "Должность: {$this->position}<br>";
-        echo "Email: {$this->email}<br>";
-        echo "______________<br>";
-    }
-}
-
-echo '<form method="POST">
-    <h3>Добавить студента</h3>
-    Имя: <input type="text" name="name" required>
-    Группа: <input type="text" name="group" required>
-    Email: <input type="email" name="email">
-    <button type="submit" name="add">Добавить</button>
-</form><hr>';
-
-if (isset($_POST['add'])) {
-
+if (isset($_GET['add'])) {
     $data = json_decode(file_get_contents('users1.json'), true);
     
-    $newStudent = [
-        'Name' => $_POST['name'],
-        'Group' => $_POST['group'],
-        'Email' => $_POST['email'],
-        'type' => 'student'
+    $data['users'][] = [
+        'Name' => $_GET['name'],
+        'Group' => $_GET['group'],
+        'Email' => $_GET['email']
     ];
     
-    $data['users'][] = $newStudent;
-    
-    file_put_contents('users1.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    
-    echo "<p>Студент {$_POST['name']} добавлен в users1.json!</p>";
+    file_put_contents('users1.json', json_encode($data));
+    echo "Студент {$_GET['name']} добавлен<br><br>";
 }
 
-$jsonData = file_get_contents('users1.json');
-$usersData = json_decode($jsonData, true);
-$allUsers = $usersData['users'];
+echo '<form method="GET">
+    <h3>Добавить студента</h3>
+    Имя: <input type="text" name="name">
+    Группа: <input type="text" name="group">
+    Email: <input type="email" name="email">
+    <button type="submit" name="add" value="1">Добавить</button>
+</form><hr>';
 
-$allObjects = [];
-
-foreach ($allUsers as $user) {
-    if (isset($user['Group'])) {
-
-        $allObjects[] = new Student
-        ($user['Name'], $user['Group'], $user['Email'] ?? '');
-    } elseif (isset($user['Subject'])) {
-
-        $allObjects[] = new Teacher
-        ($user['Name'], $user['Subject'], $user['Email'] ?? '');
-    } elseif (isset($user['Position'])) {
-
-        $allObjects[] = new Manager
-        ($user['Name'], $user['Email'], $user['Position']);
-    } else {
-
-        $allObjects[] = new Manager
-        ($user['Name'], $user['Email']);
-    }
-}
+$data = json_decode(file_get_contents('users1.json'), true);
 
 echo "<h3>Все пользователи:</h3>";
-array_map(function($obj) { 
-    $obj->sayAboutMe(); 
-}, $allObjects);
+foreach ($data['users'] as $index => $user) {
+    $student = new Student($user['Name'], $user['Group'], $user['Email']);
+    $student->sayAboutMe();
+    echo "<a href='?delete=$index'>Удалить</a><br><br>";
+}
 
 ?>
